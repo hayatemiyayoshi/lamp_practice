@@ -75,7 +75,7 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
 
   return execute_query($db, $sql);
 }
-
+// ?を追加（公式サイトを見ながら）
 function update_cart_amount($db, $cart_id, $amount){
   $sql = "
     UPDATE
