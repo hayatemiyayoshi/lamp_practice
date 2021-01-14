@@ -13,6 +13,8 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 
+//データベースを定義
 $items = get_open_items($db);
 
+//商品一覧画面へ
 include_once VIEW_PATH . 'index_view.php';

@@ -18,9 +18,10 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
+//item_idが飛んできたら定義
 $item_id = get_post('item_id');
 
-
+//削除できたら完了メッセージ、できない時はエラー表示
 if(destroy_item($db, $item_id) === true){
   set_message('商品を削除しました。');
 } else {
@@ -28,5 +29,5 @@ if(destroy_item($db, $item_id) === true){
 }
 
 
-
+//管理画面に戻る
 redirect_to(ADMIN_URL);
