@@ -102,6 +102,7 @@ function update_item_status($db, $item_id, $status){
   return execute_query($db, $sql);
 }
 
+// エスケープ処理
 function update_item_stock($db, $item_id, $stock){
   $sql = "
     UPDATE
@@ -109,7 +110,9 @@ function update_item_stock($db, $item_id, $stock){
     SET
       stock = {$stock}
     WHERE
-      item_id = {$item_id}
+      item_id 
+    IN
+      {$item_id}
     LIMIT 1
   ";
   
