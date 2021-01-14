@@ -88,14 +88,14 @@ function update_cart_amount($db, $cart_id, $amount){
     UPDATE
       carts
     SET
-      amount = {$amount}
+      amount = ?
     WHERE
-      cart_id
-    IN
-      {$cart_id}
+      cart_id = ?
     LIMIT 1
   ";
-  return execute_query($db, $sql);
+
+  $params = array($amount, $cart_id);
+  return execute_query($db, $sql, $params);
 }
 
 //商品を削除する
