@@ -96,9 +96,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
+    VALUES(?, ?, ?, ?, ?);
   ";
-
+  
+  $params = array($name, $price, $stock, $image, $status);
   return execute_query($db, $sql);
 }
 
