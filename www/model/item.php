@@ -109,12 +109,13 @@ function update_item_status($db, $item_id, $status){
     UPDATE
       items
     SET
-      status = {$status}
+      status = ?
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
-  
+
+  $params = array($item_id, $status);
   return execute_query($db, $sql);
 }
 
@@ -161,10 +162,11 @@ function delete_item($db, $item_id){
     DELETE FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
   
+  $params = array($item_id);
   return execute_query($db, $sql);
 }
 
