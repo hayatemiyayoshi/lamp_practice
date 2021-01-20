@@ -17,11 +17,18 @@ $user = get_login_user($db);
 //変更するitem_idを定義
 $cart_id = get_post('cart_id');
 
+//照合に失敗したら商品の削除をできないようにする
+//formから送信されたトークンと保存されているトークンが同じでないなら削除しない
 //削除が完了したらメッセージ、できない場合はエラー表示
-if(delete_cart($db, $cart_id)){
-  set_message('カートを削除しました。');
+if (is_valid_csrf_token($token) === true){
+  if(delete_cart($db, $cart_id)){
+    set_message('カートを削除しました。');
+  } else {
+    set_error('カートの削除に失敗しました。');
+  }
 } else {
-  set_error('カートの削除に失敗しました。');
+  set_error('不正なリクエストです。');
+  redirect_to(LOGIN_URL);
 }
 
 //カート画面に戻る

@@ -43,6 +43,7 @@
             <td>
                <!-- 数量変更時に飛ばす -->
               <form method="post" action="cart_change_amount.php">
+              <input type="hidden" name="token" value="<?php print $token ?>">
                  <!-- 現場の数量の表示 -->
                 <input type="number" name="amount" value="<?php print($cart['amount']); ?>">
                 個
@@ -57,6 +58,7 @@
             <td>
                <!-- 削除を押した時に飛ばす -->
               <form method="post" action="cart_delete_cart.php">
+              <input type="hidden" name="token" value="<?php print $token ?>">
                  <!-- 削除ボタン -->
                 <input type="submit" value="削除" class="btn btn-danger delete">
                  <!-- cart_idも同時に飛ばす -->
@@ -72,6 +74,7 @@
       <p class="text-right">合計金額: <?php print number_format($total_price); ?>円</p>
        <!-- 購入画面に飛ばす -->
       <form method="post" action="finish.php">
+      <input type="hidden" name="token" value="<?php print $token ?>">
          <!-- 購入ボタン -->
         <input class="btn btn-block btn-primary" type="submit" value="購入する">
       </form>

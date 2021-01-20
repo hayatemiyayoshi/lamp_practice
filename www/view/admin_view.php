@@ -89,6 +89,7 @@
             <td>
                <!-- 在庫数変更を飛ばす -->
               <form method="post" action="admin_change_stock.php">
+              <input type="hidden" name="token" value="<?php print $token?>">
                 <div class="form-group">
                   <!-- sqlインジェクション確認のためあえてtext -->
                    <!-- 在庫数の表示 -->
@@ -104,6 +105,7 @@
             <td>
                <!-- ステータスの変更を飛ばす -->
               <form method="post" action="admin_change_status.php" class="operation">
+              <input type ="hidden" name="token" value="<?php print $token?>">
                  <!-- 公開だったら非公開に変更する -->
                 <?php if(is_open($item) === true){ ?>
                   <input type="submit" value="公開 → 非公開" class="btn btn-secondary">
@@ -119,6 +121,7 @@
               
                <!-- 商品の削除 -->
               <form method="post" action="admin_delete_item.php">
+              <input type="hidden" name="token" value="<?php print $token?>">
                  <!-- 削除ボタン -->
                 <input type="submit" value="削除" class="btn btn-danger delete">
                  <!-- item_idを同時に飛ばす -->

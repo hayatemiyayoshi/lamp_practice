@@ -18,11 +18,18 @@ $user = get_login_user($db);
 $cart_id = get_post('cart_id');
 $amount = get_post('amount');
 
+//照合に失敗したら購入数の更新をできないようにする
+//formから送信されたトークンと保存されているトークンが同じでないなら更新しない
 //変更できたら完了メッセージ、できない場合はエラー表示
-if(update_cart_amount($db, $cart_id, $amount)){
-  set_message('購入数を更新しました。');
+if (is_valid_csrf_token($token) === true){
+  if(update_cart_amount($db, $cart_id, $amount)){
+    set_message('購入数を更新しました。');
+  } else {
+    set_error('購入数の更新に失敗しました。');
+  }
 } else {
-  set_error('購入数の更新に失敗しました。');
+  set_error('不正なリクエストです。');
+  redirect_to(LOGIN_URL);
 }
 
 //カート画面に戻る

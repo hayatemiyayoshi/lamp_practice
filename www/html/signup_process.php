@@ -21,11 +21,18 @@ $db = get_db_connect();
 
 
 try{
-  //ユーザー名、パスワードが条件を満たしていない場合、エラー表示
-  $result = regist_user($db, $name, $password, $password_confirmation);
-  if( $result=== false){
-    set_error('ユーザー登録に失敗しました。');
-    redirect_to(SIGNUP_URL);
+  //照合に失敗したら登録できないようにする
+  //formから送信されたトークンと保存されているトークンが同じでないなら登録しない
+  if (is_valid_csrf_token($token) === true){
+    //ユーザー名、パスワードが条件を満たしていない場合、エラー表示
+    $result = regist_user($db, $name, $password, $password_confirmation);
+    if( $result=== false){
+      set_error('ユーザー登録に失敗しました。');
+      redirect_to(SIGNUP_URL);
+    }
+  } else {
+    set_error('不正なリクエストです。');
+    redirect_to(LOGIN_URL);
   }
   //エラー表示
 }catch(PDOException $e){
