@@ -28,3 +28,6 @@ if ($user['type'] === USER_TYPE_ADMIN){
   redirect_to(ADMIN_URL);
 }
 redirect_to(HOME_URL);
+
+//照合に失敗したらログインできないようにする
+//issue8をコミットしてからissue4を作成する。

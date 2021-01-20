@@ -16,6 +16,7 @@
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
      <!-- ログイン情報の確認に飛ばす -->
     <form method="post" action="login_process.php" class="login_form mx-auto">
+    <input type="hidden" name="token" value="<?php print $token ?>">  
       <div class="form-group">
          <!-- ユーザー名 -->
         <label for="name">名前: </label>
