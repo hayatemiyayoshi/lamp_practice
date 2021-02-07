@@ -17,6 +17,8 @@ $user = get_login_user($db);
 //変更するitem_idを定義
 $cart_id = get_post('cart_id');
 
+//tokenを定義
+$token = get_post('token');
 //照合に失敗したら商品の削除をできないようにする
 //formから送信されたトークンと保存されているトークンが同じでないなら削除しない
 //削除が完了したらメッセージ、できない場合はエラー表示

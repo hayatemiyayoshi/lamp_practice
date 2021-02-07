@@ -21,6 +21,7 @@ if(is_admin($user) === false){
 //item_idが飛んできたら定義
 $item_id = get_post('item_id');
 
+$token = get_post('token');
 //照合に失敗したら削除をできないようにする
 //formから送信されたトークンと保存されているトークンが同じでないなら削除しない
 //削除できたら完了メッセージ、できない時はエラー表示

@@ -19,7 +19,8 @@ $password_confirmation = get_post('password_confirmation');
 //PDOを取得
 $db = get_db_connect();
 
-
+//tokenを定義
+$token = get_post('token');
 try{
   //照合に失敗したら登録できないようにする
   //formから送信されたトークンと保存されているトークンが同じでないなら登録しない

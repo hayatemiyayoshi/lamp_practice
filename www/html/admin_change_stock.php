@@ -24,6 +24,8 @@ if(is_admin($user) === false){
 $item_id = get_post('item_id');
 $stock = get_post('stock');
 
+//飛んできたtokenを定義
+$token = get_post('token');
 //照合に失敗したら在庫の更新をできないようにする
 //formから送信されたトークンと保存されているトークンが同じでないなら更新しない
 //item_id,stockの変更ができたら完了メッセージ、できない場合はエラー表示

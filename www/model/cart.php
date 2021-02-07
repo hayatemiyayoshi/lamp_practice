@@ -114,6 +114,7 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+  
   //データベースに接続できなかったらエラー表示、できたら数量をカウント
   foreach($carts as $cart){
     if(update_item_stock(

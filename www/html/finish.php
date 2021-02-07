@@ -26,6 +26,8 @@ $carts = get_user_carts($db, $user['user_id']);
 //合計金額を定義
 $total_price = sum_carts($carts);
 
+//tokenを定義
+$token = get_post('token');
 //照合に失敗したら購入画面に行かないようにする
 //formから送信されたトークンと保存されているトークンが同じでないなら飛ばない
 //購入完了画面へ

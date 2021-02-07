@@ -18,6 +18,8 @@ $user = get_login_user($db);
 $cart_id = get_post('cart_id');
 $amount = get_post('amount');
 
+//tokenを定義
+$token = get_post('token');
 //照合に失敗したら購入数の更新をできないようにする
 //formから送信されたトークンと保存されているトークンが同じでないなら更新しない
 //変更できたら完了メッセージ、できない場合はエラー表示
