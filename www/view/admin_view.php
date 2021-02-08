@@ -29,6 +29,7 @@
       action="admin_insert_item.php" 
       enctype="multipart/form-data"
       class="add_item_form col-md-6">
+      <input type="hidden" name="token" value="<?php print $token?>">
       <div class="form-group">
          <!-- 名前の記入 -->
         <label for="name">名前: </label>
