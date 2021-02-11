@@ -38,6 +38,7 @@
                 <?php if($item['stock'] > 0){ ?>
                    <!-- カートに追加フォームに飛ばす -->
                   <form action="index_add_cart.php" method="post">
+                  <input type="hidden" name="token" value="<?php print $token?>">
                      <!-- 追加ボタン -->
                     <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
                      <!-- item_idも同時に飛ばす -->

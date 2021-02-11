@@ -35,3 +35,18 @@ if(regist_item($db, $name, $price, $stock, $status, $image)){
 
 //ログイン画面に戻る
 redirect_to(ADMIN_URL);
+
+$token = get_post('token');
+//照合に失敗したら削除をできないようにする
+//formから送信されたトークンと保存されているトークンが同じでないなら削除しない
+//削除できたら完了メッセージ、できない時はエラー表示
+if (is_valid_csrf_token($token) === true){
+  if(destroy_item($db, $item_id) === true){
+    set_message('商品を削除しました。');
+  } else {
+    set_error('商品削除に失敗しました。');
+  }
+} else {
+  set_error('不正なリクエストです。');
+  redirecut_to(LOGIN_URL);
+}

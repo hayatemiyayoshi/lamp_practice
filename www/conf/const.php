@@ -16,7 +16,7 @@ define('DB_USER', 'testuser');
 define('DB_PASS', 'password');
 define('DB_CHARSET', 'utf8');
 
-//表示画面を定義
+//modelを定義
 define('SIGNUP_URL', '/signup.php');
 define('LOGIN_URL', '/login.php');
 define('LOGOUT_URL', '/logout.php');
@@ -58,3 +58,4 @@ define('PERMITTED_IMAGE_TYPES', array(
   IMAGETYPE_JPEG => 'jpg',
   IMAGETYPE_PNG => 'png',
 ));
+
