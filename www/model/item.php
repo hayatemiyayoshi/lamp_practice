@@ -96,9 +96,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
+    VALUES(?, ?, ?, ?, ?);
   ";
-
+  
+  $params = array($name, $price, $stock, $image, $status);
   return execute_query($db, $sql);
 }
 
@@ -108,28 +109,31 @@ function update_item_status($db, $item_id, $status){
     UPDATE
       items
     SET
-      status = {$status}
+      status = ?
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
-  
+
+  $params = array($item_id, $status);
   return execute_query($db, $sql);
 }
 
+// エスケープ処理
 //在庫数の更新
 function update_item_stock($db, $item_id, $stock){
   $sql = "
     UPDATE
       items
     SET
-      stock = {$stock}
+      stock = ?
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
   
-  return execute_query($db, $sql);
+  $params = array($stock, $item_id);
+  return execute_query($db, $sql, $params);
 }
 
 //商品の削除
@@ -158,10 +162,11 @@ function delete_item($db, $item_id){
     DELETE FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
   
+  $params = array($item_id);
   return execute_query($db, $sql);
 }
 
