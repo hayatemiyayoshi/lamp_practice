@@ -35,7 +35,7 @@ CREATE TABLE 'histories' (
 
 CREATE TABLE 'details' (
    'detail_id' int(11) NOT NULL AUTO_INCREMENT,
-   'order_id' int(11) NOT NULL AUTO_INCREMENT,
+   'order_id' int(11) NOT NULL,
    'item_id' int(11) NOT NULL,
    'price' int(11) NOT NULL,
    'amount' int(11) NOT NULL
