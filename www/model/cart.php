@@ -27,7 +27,7 @@ function get_user_carts($db, $user_id){
   ";
 
   $params = array($user_id);
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, $params);
 }
 
 //user_idとitem_idが一致している商品を抽出する
@@ -56,7 +56,7 @@ function get_user_cart($db, $user_id, $item_id){
   ";
 
   $params = array($user_id, $item_id);
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 
 }
 
@@ -82,7 +82,7 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
   ";
 
   $params = array($item_id, $user_id, $amount);
-  return execute_query($db, $sql);
+  return execute_query($db, $sql,$params);
 }
 // ?を追加（公式サイトを見ながら）
 
@@ -113,26 +113,69 @@ function delete_cart($db, $cart_id){
   ";
 
   $params = array($cart_id);
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
+
 //商品を購入する
-function purchase_carts($db, $carts){
+function purchase_carts($db, $user_id, $carts){
   //$cartsがなかったらエラー
   if(validate_cart_purchase($carts) === false){
     return false;
   }
   
-  //データベースに接続できなかったらエラー表示、できたら数量をカウント
-  foreach($carts as $cart){
-    if(update_item_stock(
-        $db, 
-        $cart['item_id'], 
-        $cart['stock'] - $cart['amount']
-      ) === false){
-      set_error($cart['name'] . 'の購入に失敗しました。');
+  //トランザクション開始
+  $db->beginTransaction();
+  //エラーが発生したのかどうかの関数
+  try {
+  //historiesへのinsert
+    $sql = "
+      INSERT INTO
+        histories(
+          user_id
+        ) 
+      VALUES (?)      
+      ";
+    
+    $params = array($user_id);
+    execute_query($db, $sql, $params);
+    
+    $order_id = $db->lastInsertId();
+    
+
+    //データベースに接続できなかったらエラー表示、できたら数量をカウント
+    foreach($carts as $cart){
+      if(update_item_stock(
+          $db, 
+          $cart['item_id'], 
+          $cart['stock'] - $cart['amount']
+        ) === false){
+        set_error($cart['name'] . 'の購入に失敗しました。');
+      }
+    
+      //detailsへのinsert
+      $sql = "
+        INSERT INTO
+          details(
+            order_id,
+            item_id,
+            price,
+            amount
+          )
+        VALUES (?,?,?,?)
+        ";
+      
+      $params = array($order_id, $cart['item_id'], $cart['price'], $cart['amount']);
+      execute_query($db, $sql, $params);
+    
+      $db->commit();
     }
-  }
+  //トランザクション終了
+  }catch(PDOException $e) {
+    $db->rollback();
+    throw $e;
+  } 
+
   //ユーザーのカートから商品を削除
   delete_user_carts($db, $carts[0]['user_id']);
 }
@@ -147,7 +190,7 @@ function delete_user_carts($db, $user_id){
   ";
 
   $params = array($user_id);
-  execute_query($db, $sql);
+  execute_query($db, $sql, $params);
 }
 
 //購入金額の表示

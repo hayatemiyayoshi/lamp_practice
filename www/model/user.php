@@ -18,7 +18,7 @@ function get_user($db, $user_id){
   ";
 
   $params = array($user_id);
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 //名前が一致するユーザーの抽出
@@ -37,7 +37,7 @@ function get_user_by_name($db, $name){
   ";
 
   $params = array($name);
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 //ログイン時のユーザーの確認
@@ -129,6 +129,6 @@ function insert_user($db, $name, $password){
   ";
   
   $params = array($name, $password);
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
