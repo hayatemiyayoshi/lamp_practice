@@ -32,26 +32,13 @@
           <td><?php print $history['order_id']; ?></td>
           <!-- 購入日時 -->
           <td><?php print $history['created']; ?></td> 
-          <!-- 合計金額の表示???　-->
-          <td><?php print(number_format($history['']); ?></td>
-          <td>
-            <!-- 購入明細表示へ -->
-            <form method="post" action="history.php">
-              <!-- トークン　-->
-              <input type="hidden" name="token" value="<?php print $token ?>">
-              <!-- 購入明細表示ボタン -->
-              <input type="submit" value="購入明細表示">
-              <!-- order_idも飛ばす -->
-              <input type="hidden" name="order_id" value="<?php print($history['order_id']); ?>">
-            </form>
-          </td>
+          <!-- 合計金額の表示　-->
+          <td><?php print(number_format($history['total_price'])); ?></td>
         </tr>
       <?php } ?>
       </tbody>
-    </table> 
-    <?php }else{ ?>
-    <p>購入履歴がありません。</p>
-    <?php } ?>
+    </table>
+
     
     <!-- 購入明細 -->
     <table>
@@ -74,7 +61,7 @@
           <!-- 購入数 -->
           <td><?php print ($detail['amount']); ?></td>
           <!-- 小計 -->
-          <td><?php print (number_format($history['']); ?></td>
+          <td><?php print (number_format($history['total_price'])); ?></td>
         </tr>    
       <?php } ?>
       </tbody>

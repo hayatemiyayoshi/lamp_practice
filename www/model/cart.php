@@ -126,8 +126,7 @@ function purchase_carts($db, $user_id, $carts){
   
   //トランザクション開始
   $db->beginTransaction();
-  //エラーが発生したのかどうかの関数
-  try {
+  
   //historiesへのinsert
     $sql = "
       INSERT INTO
@@ -166,15 +165,18 @@ function purchase_carts($db, $user_id, $carts){
         ";
       
       $params = array($order_id, $cart['item_id'], $cart['price'], $cart['amount']);
+      //例外のキャッチをしている
       execute_query($db, $sql, $params);
     
-      $db->commit();
     }
   //トランザクション終了
-  }catch(PDOException $e) {
+  //エラーがあったら
+  if(has_error()) {
     $db->rollback();
-    throw $e;
-  } 
+    return false; 
+  } else {
+    $db->commit();
+  }
 
   //ユーザーのカートから商品を削除
   delete_user_carts($db, $carts[0]['user_id']);

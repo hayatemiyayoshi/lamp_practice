@@ -27,26 +27,50 @@
         </tr>
       </thead>
       <tbody>
-      <?php foreach($histories as $history) {?>
+      <?php if(is_admin($user)){ ?>
+        <?php foreach ($admin_histories as $admin_history){ ?>
         <tr>
-          <!-- 注文番号 -->
-          <td><?php print $history['order_id']; ?></td>
-          <!-- 購入日時 -->
-          <td><?php print $history['created']; ?></td> 
-          <!-- 合計金額の表示???　-->
-          <td><?php print(number_format($history['']); ?></td>
-          <td>
-            <!-- 購入明細表示へ -->
-            <form method="post" action="history.php">
-              <!-- トークン　-->
-              <input type="hidden" name="token" value="<?php print $token ?>">
-              <!-- 購入明細表示ボタン -->
-              <input type="submit" value="購入明細表示">
-              <!-- order_idも飛ばす -->
-              <input type="hidden" name="order_id" value="<?php print($history['order_id']); ?>">
-            </form>
-          </td>
-        </tr>
+            <!-- 注文番号 -->
+            <td><?php print $admin_histories['order_id']; ?></td>
+            <!-- 購入日時 -->
+            <td><?php print $admin_histories['created']; ?></td> 
+            <!-- 合計金額の表示　-->
+            <td><?php print(number_format($admin_histories['total_price'])); ?></td>
+            <td>
+              <!-- 購入明細表示へ -->
+              <form method="post" action="detail.php">
+                <!-- トークン　-->
+                <input type="hidden" name="token" value="<?php print $token ?>">
+                <!-- 購入明細表示ボタン -->
+                <input type="submit" value="購入明細表示">
+                <!-- order_idも飛ばす -->
+                <input type="hidden" name="order_id" value="<?php print($admin_histories['order_id']); ?>">
+              </form>
+            </td>
+          </tr>
+        <?php } ?>
+      <?php }else{ ?>
+        <?php foreach($histories as $history) {?>
+          <tr>
+            <!-- 注文番号 -->
+            <td><?php print $history['order_id']; ?></td>
+            <!-- 購入日時 -->
+            <td><?php print $history['created']; ?></td> 
+            <!-- 合計金額の表示　-->
+            <td><?php print(number_format($history['total_price'])); ?></td>
+            <td>
+              <!-- 購入明細表示へ -->
+              <form method="post" action="detail.php">
+                <!-- トークン　-->
+                <input type="hidden" name="token" value="<?php print $token ?>">
+                <!-- 購入明細表示ボタン -->
+                <input type="submit" value="購入明細表示">
+                <!-- order_idも飛ばす -->
+                <input type="hidden" name="order_id" value="<?php print($history['order_id']); ?>">
+              </form>
+            </td>
+          </tr>
+        <?php } ?>
       <?php } ?>
       </tbody>
     </table> 
