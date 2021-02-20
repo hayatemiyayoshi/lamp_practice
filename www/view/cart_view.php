@@ -44,7 +44,7 @@
                <!-- 数量変更時に飛ばす -->
               <form method="post" action="cart_change_amount.php">
               <input type="hidden" name="token" value="<?php print $token ?>">
-                 <!-- 現場の数量の表示 -->
+                 <!-- 現状の数量の表示 -->
                 <input type="number" name="amount" value="<?php print($cart['amount']); ?>">
                 個
                  <!-- 変更ボタン -->

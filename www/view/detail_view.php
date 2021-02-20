@@ -26,7 +26,6 @@
         </tr>
       </thead>
       <tbody>
-      <?php foreach($histories as $history) {?>
         <tr>
           <!-- 注文番号 -->
           <td><?php print $history['order_id']; ?></td>
@@ -35,7 +34,6 @@
           <!-- 合計金額の表示　-->
           <td><?php print(number_format($history['total_price'])); ?></td>
         </tr>
-      <?php } ?>
       </tbody>
     </table>
 
@@ -61,7 +59,7 @@
           <!-- 購入数 -->
           <td><?php print ($detail['amount']); ?></td>
           <!-- 小計 -->
-          <td><?php print (number_format($history['total_price'])); ?></td>
+          <td><?php print (number_format($detail['total_price'])); ?></td>
         </tr>    
       <?php } ?>
       </tbody>

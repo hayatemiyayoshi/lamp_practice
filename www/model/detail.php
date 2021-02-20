@@ -26,3 +26,4 @@ function get_details($db, $order_id){
   $params = array($order_id);
   return fetch_all_query($db, $sql, $params);
 }
+

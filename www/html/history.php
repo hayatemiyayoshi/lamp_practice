@@ -17,8 +17,12 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 //user_idを定義
-$histories = get_histories($db, $user['user_id']);
-$admin_histories = get_admin_histories($db);
+if(is_admin($user)){
+  $histories = get_admin_histories($db);
+}else{
+  $histories = get_histories($db, $user['user_id']);
+}
+
 
 $order_id = get_post('order_id');
 

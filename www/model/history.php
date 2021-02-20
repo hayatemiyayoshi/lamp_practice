@@ -44,10 +44,33 @@ function get_admin_histories($db){
     ON
       histories.order_id = details.order_id
     GROUP BY
-      detail.order_id
+      details.order_id
     ORDER BY
       histories.created DESC
   ";
      
   return fetch_all_query($db, $sql);
+}
+
+function get_history($db, $order_id){
+  $sql = "
+    SELECT
+        histories.order_id,
+        histories.created,
+        sum(details.price * details.amount) as total_price,
+        histories.user_id
+      FROM
+        histories
+      JOIN
+        details
+      ON
+        histories.order_id = details.order_id
+      WHERE
+        histories.order_id = ?
+      GROUP BY
+        details.order_id
+    ";
+
+    $params = array($order_id);
+    return fetch_query($db, $sql, $params);
 }
