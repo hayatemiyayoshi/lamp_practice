@@ -16,10 +16,11 @@ function get_item($db, $item_id){
     FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = ?
   ";
-
-  return fetch_query($db, $sql);
+  
+  $params = array($item_id);
+  return fetch_query($db, $sql, $params);
 }
 
 //公開している商品の抽出
@@ -100,7 +101,7 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
   ";
   
   $params = array($name, $price, $stock, $image, $status);
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 //ステータスの更新
@@ -116,7 +117,7 @@ function update_item_status($db, $item_id, $status){
   ";
 
   $params = array($item_id, $status);
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // エスケープ処理
@@ -167,7 +168,7 @@ function delete_item($db, $item_id){
   ";
   
   $params = array($item_id);
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 
