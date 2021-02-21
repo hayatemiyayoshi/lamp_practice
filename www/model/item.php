@@ -45,6 +45,81 @@ function get_items($db, $is_open = false){
   return fetch_all_query($db, $sql);
 }
 
+//新着順
+function new_get_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE 
+        status = 1
+      ORDER BY
+        created DESC
+    ';
+  }
+
+  return fetch_all_query($db, $sql);
+}
+
+//価格の安い順
+function low_get_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE 
+        status = 1
+      ORDER BY
+        price DESC
+    ';
+  }
+
+  return fetch_all_query($db, $sql);
+}
+
+//価格の高い順
+function high_get_items($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE 
+        status = 1
+      ORDER BY
+        price ASC
+    ';
+  }
+
+  return fetch_all_query($db, $sql);
+}
+
 //商品一覧の表示
 function get_all_items($db){
   return get_items($db);
@@ -243,3 +318,4 @@ function is_valid_item_status($status){
   }
   return $is_valid;
 }
+
