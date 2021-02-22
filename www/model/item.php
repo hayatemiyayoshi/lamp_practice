@@ -46,6 +46,7 @@ function get_items($db, $is_open = false){
 }
 
 //新着順
+//=が入っている物は引数は指定してもしなくても良い
 function new_get_items($db, $is_open = false){
   $sql = '
     SELECT
@@ -88,7 +89,7 @@ function low_get_items($db, $is_open = false){
       WHERE 
         status = 1
       ORDER BY
-        price DESC
+        price ASC
     ';
   }
 
@@ -113,7 +114,7 @@ function high_get_items($db, $is_open = false){
       WHERE 
         status = 1
       ORDER BY
-        price ASC
+        price DESC
     ';
   }
 

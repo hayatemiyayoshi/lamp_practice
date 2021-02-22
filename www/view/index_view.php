@@ -19,18 +19,15 @@
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
     <!-- 並べ替えプルダウン -->
-    <form action="item.php" method="get">
+    <!-- getではトークン使わない -->
+    <form class="order" action="index.php" method="get">
       <select name="order">
         <option value="new">新着順</option>
         <option value="low">価格の安い順</option>
         <option value="high">価格の高い順</option>
       </select>
-      <!--トークンの処理 -->
-      <input type="hidden" name="token" value="<?php print $token?>">
       <!-- 送信ボタン -->
       <input type="submit" value="並べ替え">
-      <!-- item_idも飛ばす -->
-      <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
     </form>
     
     <div class="card-deck">
