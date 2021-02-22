@@ -7,6 +7,7 @@ require_once MODEL_PATH . 'cart.php';
 
 session_start();
 
+
 if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }
@@ -14,13 +15,24 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 
-
+//商品一覧データベースを定義
 $item_id = get_post('item_id');
 
-if(add_cart($db,$user['user_id'], $item_id)){
-  set_message('カートに商品を追加しました。');
+//tokenを定義
+$token = get_post('token');
+//照合に失敗したら商品の追加をできないようにする
+//formから送信されたトークンと保存されているトークンが同じでないなら追加しない
+//カートに追加した場合メッセージ、できない場合はエラー表示
+if (is_valid_csrf_token($token) === true){
+  if(add_cart($db,$user['user_id'], $item_id)){
+    set_message('カートに商品を追加しました。');
+  } else {
+    set_error('カートの更新に失敗しました。');
+  }
 } else {
-  set_error('カートの更新に失敗しました。');
+  set_error('不正なリクエストです。');
+  redirect_to(LOGIN_URL);
 }
 
+//商品一覧ページへ
 redirect_to(HOME_URL);
