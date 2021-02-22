@@ -18,6 +18,18 @@
      <!-- ビューの読み込み -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
+    <!-- 並べ替えプルダウン -->
+    <!-- getではトークン使わない -->
+    <form class="order" action="index.php" method="get">
+      <select name="order">
+        <option value="new">新着順</option>
+        <option value="low">価格の安い順</option>
+        <option value="high">価格の高い順</option>
+      </select>
+      <!-- 送信ボタン -->
+      <input type="submit" value="並べ替え">
+    </form>
+    
     <div class="card-deck">
       <div class="row">
        <!-- 商品の数だけ回す -->
